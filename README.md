@@ -35,3 +35,7 @@ Full list of parameters:
 
 ## Citation:
  - Koren S, Walenz BP, Berlin K, Miller JR, Phillippy AM. [Canu: scalable and accurate long-read assembly via adaptive k-mer weighting and repeat separation](https://doi.org/10.1101/gr.215087.116). Genome Research. (2017).
+ 
+ ## How to run MyCanu:
+ 
+ 
