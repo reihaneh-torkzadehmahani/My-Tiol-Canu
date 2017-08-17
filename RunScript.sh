@@ -23,7 +23,7 @@ sudo apt-get update
 
 echo "Installing canu  ..."
 sudo rm -r ./src/pipelines/canu/Defaults.pm
-sudo cp -r ./src/pipelines/plScripts/Defaults.pm ./src/pipelines/canu
+sudo cp ./src/pipelines/plScripts/Defaults.pm ./src/pipelines/canu
 cd ./src
 sudo make -j4
 cd ..
