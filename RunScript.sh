@@ -8,7 +8,7 @@ sudo apt-get install -y python-pip
 
 
 echo "Installing Toil  ..."
-pip install toil
+sudo pip install toil
 
 echo "Installing java8  ..."
 sudo apt-get install software-properties-common 
