@@ -26,7 +26,7 @@ sudo git clone https://github.com/marbl/canu.git
 sudo rm -r ./src/pipelines/canu/Defaults.pm
 sudo cp -r ./src/pipelines/canu/plScripts/Defaults.pm ./src/pipelines/canu
 cd canu/src
-make
+sudo make
 cd ./Linux-amd64/bin
 sudo cp -r ./src/pipelines/canu/plScripts/*.pl ./Linux-amd64/bin
 sudo cp -r ./src/pipelines/canu/plScripts/ToilCanu.py ./Linux-amd64/bin
