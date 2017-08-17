@@ -33,4 +33,4 @@ cd canu/src
 make
 cd /home/ubuntu/canu/Linux-amd64/bin
 sudo cp -r /home/ubuntu/canu/src/pipelines/canu/plScripts/*.pl /home/ubuntu/canu/Linux-amd64/bin
-sudo cp -r /home/ubuntu/ForGit/ToilCanu.py /home/ubuntu/canu/Linux-amd64/bin
+sudo cp -r /home/ubuntu/canu/src/pipelines/canu/plScripts/ToilCanu.py /home/ubuntu/canu/Linux-amd64/bin
