@@ -22,8 +22,6 @@ sudo apt-get install -y gnuplot
 sudo apt-get update
 
 echo "Installing canu  ..."
-sudo rm ./src/pipelines/canu/Defaults.pm
-sudo cp ./src/pipelines/plScripts/Defaults.pm ./src/pipelines/canu
 cd ./src
 sudo make -j4
 cd ..
