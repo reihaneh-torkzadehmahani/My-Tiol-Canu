@@ -43,6 +43,7 @@ Full list of parameters:
         cd Mycanu
         ./RunScript.sh
       
+        cd Linux-amd64/bin/
         sudo python ToilCanu.py -c '''/home/ubuntu/Mycanu/Linux-amd64/bin/''' -o '-p ecoli -d ecoil-oxford2 genomeSize=4.8m   corMinCoverage=0 corMaxEvidenceErate=0.22 "corMhapOptions=--threshold 0.8 --num-hashes 512 --ordered-sketch-size 1000 --ordered kmer-size 14"  -nanopore-raw oxford.fasta'
  
  
