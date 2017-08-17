@@ -28,6 +28,6 @@ sudo cp -r ./src/pipelines/canu/plScripts/Defaults.pm ./src/pipelines/canu
 cd canu/src
 sudo make
 cd ../..
-sudo cp -r ./canu/src/pipelines/canu/plScripts/*.pl ./canu/Linux-amd64/bin
-sudo cp -r ./canu/src/pipelines/canu/plScripts/ToilCanu.py ./canu/Linux-amd64/bin
+sudo cp -r ./canu/src/pipelines/plScripts/*.pl ./canu/Linux-amd64/bin
+sudo cp -r ./canu/src/pipelines/plScripts/ToilCanu.py ./canu/Linux-amd64/bin
 cd ./canu/Linux-amd64/bin
