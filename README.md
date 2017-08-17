@@ -38,12 +38,12 @@ Full list of parameters:
  
  ## How to run MyCanu:
  
-        git clone https://github.com/reihaneh-torkzadehmahani/Mycanu.git
-        sudo chmod 755 ./Mycanu/RunScript.sh
-        cd Mycanu
+        git clone https://github.com/reihaneh-torkzadehmahani/canu.git
+        sudo chmod 755 ./canu/RunScript.sh
+        cd canu
         ./RunScript.sh
       
         cd Linux-amd64/bin/
-        sudo python ToilCanu.py -c '''/home/ubuntu/Mycanu/Linux-amd64/bin/''' -o '-p ecoli -d ecoil-oxford2 genomeSize=4.8m   corMinCoverage=0 corMaxEvidenceErate=0.22 "corMhapOptions=--threshold 0.8 --num-hashes 512 --ordered-sketch-size 1000 --ordered kmer-size 14"  -nanopore-raw oxford.fasta'
+        sudo python ToilCanu.py -c '''/home/ubuntu/canu/Linux-amd64/bin/''' -o '-p ecoli -d ecoil-oxford2 genomeSize=4.8m   corMinCoverage=0 corMaxEvidenceErate=0.22 "corMhapOptions=--threshold 0.8 --num-hashes 512 --ordered-sketch-size 1000 --ordered kmer-size 14"  -nanopore-raw oxford.fasta'
  
  
