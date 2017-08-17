@@ -22,12 +22,11 @@ sudo apt-get install -y gnuplot
 sudo apt-get update
 
 echo "Installing canu  ..."
-sudo git clone https://github.com/marbl/canu.git
 sudo rm -r ./src/pipelines/canu/Defaults.pm
-sudo cp -r ./src/pipelines/canu/plScripts/Defaults.pm ./src/pipelines/canu
-cd canu/src
-sudo make
+sudo cp -r ./src/pipelines/plScripts/Defaults.pm ./src/pipelines/canu
+cd ./src
+sudo make -j4
 cd ../..
-sudo cp -r ./canu/src/pipelines/plScripts/*.pl ./canu/Linux-amd64/bin
-sudo cp -r ./canu/src/pipelines/plScripts/ToilCanu.py ./canu/Linux-amd64/bin
-cd ./canu/Linux-amd64/bin
+sudo cp -r ./src/pipelines/plScripts/*.pl ./Linux-amd64/bin
+sudo cp -r ./src/pipelines/plScripts/ToilCanu.py ./Linux-amd64/bin
+cd ./Linux-amd64/bin
