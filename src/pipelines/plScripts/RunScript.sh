@@ -28,9 +28,9 @@ sudo apt-get update> /dev/null 2>&1
 echo "Installing canu  ..."
 sudo git clone https://github.com/marbl/canu.git
 sudo rm -r /home/ubuntu/canu/src/pipelines/canu/Defaults.pm
-sudo cp -r /home/ubuntu/canu/src/pipelines/canu/ReihanehScripts/Defaults.pm /home/ubuntu/canu/src/pipelines/canu
+sudo cp -r /home/ubuntu/canu/src/pipelines/canu/plScripts/Defaults.pm /home/ubuntu/canu/src/pipelines/canu
 cd canu/src
 make
 cd /home/ubuntu/canu/Linux-amd64/bin
-sudo cp -r /home/ubuntu/canu/src/pipelines/canu/ReihanehScripts/*.pl /home/ubuntu/canu/Linux-amd64/bin
+sudo cp -r /home/ubuntu/canu/src/pipelines/canu/plScripts/*.pl /home/ubuntu/canu/Linux-amd64/bin
 sudo cp -r /home/ubuntu/ForGit/ToilCanu.py /home/ubuntu/canu/Linux-amd64/bin
