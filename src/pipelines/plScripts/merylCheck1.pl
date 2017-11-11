@@ -55,7 +55,7 @@ use canu::HTML;
 my $cmd     = undef;              #  Temporary string passed to system().
 my $asm     = undef;              #  Name of our assembly.
 my $mode=undef; 
-my $filename="/tmp/MC1Parameters.txt";
+my $filename='/tmp/MC1Parameters.txt';
 
 $mode="run";
 $asm="ecoli";
@@ -71,24 +71,34 @@ restoreParameters();
 my $Step = $ARGV[0];
 
 if ($Step eq "correct"){       
-	foreach (1..getGlobal("canuIterationMax") + 1){
+	#foreach (1..getGlobal("canuIterationMax") + 1){
+        foreach (1..3){
 		merylCheck1($asm, "cor");
-		merylCheck2($asm, "cor", "correction/0-mercounts")}
+	}
+}		
+	#	merylCheck2($asm, "cor")}
 
-}elsif ($Step eq "trim"){
-	foreach (1..getGlobal("canuIterationMax") + 1){
-                merylCheck1($asm, "obt");
-                merylCheck2($asm, "obt")}
+elsif ($Step eq "trim"){
+#	foreach (1..getGlobal("canuIterationMax") + 1){
+        foreach (1..3){
+		 merylCheck1($asm, "obt");
+	}
+}
+#                merylCheck2($asm, "obt");}
 
-}elsif ($Step eq "assemble"){
-	foreach (1..getGlobal("canuIterationMax") + 1){
-                merylCheck1($asm, "utg");
-                merylCheck2($asm, "utg")}
-}else{
+elsif ($Step eq "assemble"){
+#	foreach (1..getGlobal("canuIterationMax") + 1){
+	foreach (1..3){
+          merylCheck1($asm, "utg");
+        }
+}
+#                merylCheck2($asm, "utg");}
+else{
 die "Step is not valid!!! \n"; }
 
 #------------------------------------------------------------------------------------
 
 saveParameters();
+
 
 

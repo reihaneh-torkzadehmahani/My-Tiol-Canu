@@ -40,7 +40,7 @@ package canu::Meryl;
 require Exporter;
 
 @ISA    = qw(Exporter);
-@EXPORT = qw(merylConfigure merylCheck merylProcess);
+@EXPORT = qw(merylConfigure merylCheck1 merylCheck2 merylProcess);
 
 use strict;
 
@@ -375,8 +375,18 @@ sub merylConfigure ($$) {
     my $tag    = shift @_;
     my $bin    = getBinDirectory();
     my $cmd;
-
+    my $filename="/tmp/MC1Parameters.txt";
+    
     my ($base, $path, $merSize, $merThresh, $merScale, $merDistinct, $merTotal, $ffile, $ofile) = merylParameters($asm, $tag);
+    
+  
+                my $canuItMax=getGlobal("canuIterationMax");
+
+                open(my $fh, '>', $filename) or die "Could not open file '$filename' $!";
+                say $fh "$path";
+                say $fh "$canuItMax";
+
+                close $fh;
 
     goto allDone   if (skipStage($asm, "$tag-merylConfigure") == 1);
     goto allDone   if (fileExists("$path/meryl.sh"));
@@ -490,7 +500,7 @@ sub merylConfigure ($$) {
 
 
 
-sub merylCheck ($$) {
+sub merylCheck1 ($$) {
     my $asm     = shift @_;
     my $tag     = shift @_;
     my $attempt = getGlobal("canuIteration");
@@ -534,11 +544,9 @@ sub merylCheck ($$) {
 
     emitStage($asm, "merylCheck", $attempt);
     buildHTML($asm, $tag);
-
-    submitOrRunParallelJob($asm, "meryl", $path, "meryl", (1));
-    return;
-
-  finishStage:
+    return();
+    
+    finishStage:
     print STDERR "-- Meryl finished successfully.\n";
 
     make_path($path);   #  With object storage, we might not have this directory!
@@ -554,6 +562,46 @@ sub merylCheck ($$) {
   allDone:
 }
 
+sub merylCheck2 ($$$) {
+    # TO DO : if for ~conditions of allDone and FinishStage
+    my $asm     = shift @_;
+    my $tag     = shift @_;
+    my $path     = shift @_;
+
+    my $attempt = getGlobal("canuIteration");
+
+    my $bin     = getBinDirectory();
+    my $cmd;
+
+    my ($base, $path, $merSize, $merThresh, $merScale, $merDistinct, $merTotal, $ffile, $ofile) = merylParameters($asm, $tag);
+
+    #  If the frequent mer file exists, don't bother running meryl.  We don't really need the
+    #  databases.
+
+    goto allDone      if (skipStage($asm, "$tag-meryl") == 1);
+    goto allDone      if (fileExists("$path/meryl.success"));
+    goto finishStage  if (!defined($ffile));
+    goto finishStage  if (fileExists("$path/$ffile"));
+    goto finishStage  if (fileExists("$path/$ofile.mcidx") && fileExists("$path/$ofile.mcdat"));
+    # ---------------------------------------------------------
+    submitOrRunParallelJob($asm, "meryl", $path, "meryl", (1));
+    return;
+    # ---------------------------------------------------------
+finishStage:
+    print STDERR "-- Meryl finished successfully.\n";
+
+    make_path($path);   #  With object storage, we might not have this directory!
+
+    open(F, "> $path/meryl.success") or caExit("can't open '$path/meryl.success' for writing: $!", undef);
+    close(F);
+
+    stashFile("$path/meryl.success");
+
+    emitStage($asm, "merylCheck");
+    buildHTML($asm, $tag);
+
+  allDone:
+}
 
 
 sub merylProcess ($$) {

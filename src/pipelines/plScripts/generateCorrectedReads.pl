@@ -64,6 +64,6 @@ $ENV{'CANU_DIRECTORY'} = getcwd();
 
 restoreParameters();
 
-generateCorrectedReads($asm)  foreach (1..getGlobal("canuIterationMax") + 1);
-
+#generateCorrectedReads($asm)  foreach (1..getGlobal("canuIterationMax") + 1);
+generateCorrectedReads($asm) foreach (1..3);
 saveParameters();

@@ -69,21 +69,25 @@ restoreParameters();
 
 #------------------------------------------------------------------------------------
 my $Step = $ARGV[0];
-
+my $merylPath=$ARGV[1];
 if ($Step eq "correct"){       
-	foreach (1..getGlobal("canuIterationMax") + 1){
-		merylCheck1($asm, "cor");
-		merylCheck2($asm, "cor", "correction/0-mercounts")}
+	#foreach (1..getGlobal("canuIterationMax") + 1){
+    	foreach (1..3){
+		merylCheck2($asm, "cor",$merylPath );
+        }
 
 }elsif ($Step eq "trim"){
-	foreach (1..getGlobal("canuIterationMax") + 1){
-                merylCheck1($asm, "obt");
-                merylCheck2($asm, "obt")}
-
+#	foreach (1..getGlobal("canuIterationMax") + 1){
+#                merylCheck1($asm, "obt");
+	foreach (1..3){ 
+               merylCheck2($asm, "obt", $merylPath);
+	}
 }elsif ($Step eq "assemble"){
-	foreach (1..getGlobal("canuIterationMax") + 1){
-                merylCheck1($asm, "utg");
-                merylCheck2($asm, "utg")}
+#	foreach (1..getGlobal("canuIterationMax") + 1){
+#                merylCheck1($asm, "utg");
+	foreach (1..3){
+                merylCheck2($asm, "utg", $merylPath);
+	}
 }else{
 die "Step is not valid!!! \n"; }
 

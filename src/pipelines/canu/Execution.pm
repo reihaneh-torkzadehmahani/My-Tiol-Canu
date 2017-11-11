@@ -157,6 +157,10 @@ sub schedulerRun () {
     }
 
     @processesRunning = @running;
+  print STDERR "-------------- running proesses -------------- \n\n";
+        foreach my $rezaProc (@processesRunning){
+	   print STDERR "Running Processes: $rezaProc \n";
+	}
 
     #  Run processes in any available slots
 
@@ -165,7 +169,14 @@ sub schedulerRun () {
         my $process = shift @processQueue;
         print STDERR "    $process\n";
         push @processesRunning, schedulerForkProcess($process);
+   print STDERR "-------------- running proesses -------------- \n\n";
+        foreach my $rezaProc (@processesRunning){
+	   print STDERR "Running Processes: $rezaProc \n";
+	}
+       
+        
     }
+
 }
 
 sub schedulerFinish ($$) {
@@ -205,6 +216,10 @@ sub schedulerFinish ($$) {
             }
             undef @processesRunning;
             @processesRunning = @newProcesses;
+  print STDERR "-------------- running proesses -------------- \n\n";
+        foreach my $rezaProc (@processesRunning){
+           print STDERR "Running Processes: $rezaProc \n";
+        }
         }
     }
 
@@ -1046,7 +1061,9 @@ sub submitOrRunParallelJob ($$$$@) {
     my $dsk          = getGlobal("${jobType}StageSpace");
 
     my @jobs         = convertToJobRange(@_);
-
+     
+    my $filename="/tmp/ProcessQueue.txt";  
+ 
     #  The script MUST be executable.
 
     makeExecutable("$path/$script.sh");
@@ -1252,9 +1269,23 @@ sub submitOrRunParallelJob ($$$$@) {
             $st = $ed = $j;
         }
 
+
+    ##########
+    print STDERR "rezaaaaazzzzzzzzzzzz \n";
+  
+    for my $tempJob (@jobs){
+       print STDERR "job: $tempJob \n";
+     } 
+
+         open(my $fh, '>', $filename) or die "Could not open file '$filename' $!";
+
         for (my $i=$st; $i<=$ed; $i++) {
             schedulerSubmit("./$script.sh $i > ./" . buildOutputName($path, $script, $i) . " 2>&1");
+	    print STDERR  "./$script.sh $i > ./" . buildOutputName($path, $script, $i) . " 2>&1";
+             say $fh "./$script.sh $i > ./" . buildOutputName($path, $script, $i) . " 2>&1";
+                	    
         }
+	close $fh;
     }
 
     # compute limit based on # of cpus
@@ -1271,7 +1302,10 @@ sub submitOrRunParallelJob ($$$$@) {
     my $nParallel  = $nCParallel < $nMParallel ? $nCParallel : $nMParallel;
 
     schedulerSetNumberOfProcesses($nParallel);
-    schedulerFinish($path, $jobType);
+    print STDERR "nParallel: $nParallel \n";
+    ## There is no need to this function while runninng it using toil we    just need the @processQueue 
+   ## TO DO: check for important parameteres in this fn  
+    #schedulerFinish($path, $jobType);
 }
 
 

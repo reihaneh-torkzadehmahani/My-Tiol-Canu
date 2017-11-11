@@ -64,6 +64,8 @@ chdir('./ecoil-oxford2');
 
 restoreParameters();
 
-unitigCheck($asm)  foreach (1..getGlobal("canuIterationMax") + 1);
+#unitigCheck($asm)  foreach (1..getGlobal("canuIterationMax") + 1);
+unitigCheck($asm)  foreach (1..3);
+
 
 saveParameters();

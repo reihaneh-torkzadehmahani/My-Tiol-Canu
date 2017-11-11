@@ -654,15 +654,16 @@ if (setOptions($mode, "correct") eq "correct") {
     if (sequenceFileExists("$asm.correctedReads") eq undef) {
         print STDERR "--\n";
         print STDERR "--\n";
-        print STDERR "-- BEGIN CORRECTION\n";
+        print STDERR "-- BEGIN CORRECTIONNNNNNNNNNNNNNNNNNNNNNNNNNN\n";
         print STDERR "--\n";
           
         printGlobal();
         gatekeeper($asm, "cor", @inputFiles);
         printGlobal();
         merylConfigure($asm, "cor");
-        merylCheck($asm, "cor")  foreach (1..getGlobal("canuIterationMax") + 1);
-        merylProcess($asm, "cor");
+#       merylCheck($asm, "cor")  foreach (1..getGlobal("canuIterationMax") + 1);
+        merylCheck($asm, "cor");
+	merylProcess($asm, "cor");
 
         overlap($asm, "cor");
 

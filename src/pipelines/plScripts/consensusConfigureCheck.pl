@@ -64,9 +64,11 @@ chdir('./ecoil-oxford2');
 
 restoreParameters();
 
-foreach (1..getGlobal("canuIterationMax") + 1) {   #  Consensus wants to change the script between the first and
+#foreach (1..getGlobal("canuIterationMax") + 1) {   #  Consensus wants to change the script between the first and
+foreach (1..3){
             consensusConfigure($asm);                      #  second iterations.  The script is rewritten in
-            consensusCheck($asm);                          #  consensusConfigure(), so we need to add that to the loop.
-        }
+            consensusCheck($asm); 
+}                         #  consensusConfigure(), so we need to add that to the loop.
+ #       }
 
 saveParameters();

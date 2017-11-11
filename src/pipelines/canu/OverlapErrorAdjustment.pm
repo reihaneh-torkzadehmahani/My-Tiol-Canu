@@ -40,7 +40,7 @@ package canu::OverlapErrorAdjustment;
 require Exporter;
 
 @ISA    = qw(Exporter);
-@EXPORT = qw(readErrorDetectionConfigure readErrorDetectionCheck overlapErrorAdjustmentConfigure overlapErrorAdjustmentCheck updateOverlapStore);
+@EXPORT = qw(readErrorDetectionConfigure readErrorDetectionCheck1 readErrorDetectionCheck2 overlapErrorAdjustmentConfigure overlapErrorAdjustmentCheck updateOverlapStore);
 
 use strict;
 
@@ -220,7 +220,7 @@ sub readErrorDetectionConfigure ($) {
 
 
 
-sub readErrorDetectionCheck ($) {
+sub readErrorDetectionCheck1 ($) {
     my $asm     = shift @_;
     my $attempt = getGlobal("canuIteration");
     my $path    = "unitigging/3-overlapErrorAdjustment";
@@ -330,7 +330,24 @@ sub readErrorDetectionCheck ($) {
 
   allDone:
 }
+sub readErrorDetectionCheck2 ($) {
+    my $asm     = shift @_;
+    my $attempt = getGlobal("canuIteration");
+    my $path    = "unitigging/3-overlapErrorAdjustment";
 
+    return         if (getGlobal("enableOEA") == 0);
+
+    goto allDone   if (fileExists("$path/red.red"));       #  Output exists
+
+    goto allDone   if (skipStage($asm, "readErrorDetectionCheck", $attempt) == 1);
+
+    goto allDone   if (fileExists("unitigging/$asm.ovlStore/evalues"));   #  Stage entrely finished
+    goto allDone   if (-d "unitigging/$asm.ctgStore");                    #  Assembly finished
+    # -----------------------------------------------------------------------------------------------
+    submitOrRunParallelJob($asm, "red", $path, "red", @failedJobs);
+    return;
+    #------------------------------------------------------------------------------------------------
+}
 
 
 
