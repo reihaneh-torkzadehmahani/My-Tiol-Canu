@@ -654,13 +654,16 @@ if (setOptions($mode, "correct") eq "correct") {
     if (sequenceFileExists("$asm.correctedReads") eq undef) {
         print STDERR "--\n";
         print STDERR "--\n";
-        print STDERR "-- BEGIN CORRECTION\n";
+        print STDERR "-- BEGIN CORRECTIONNNNNNNN\n";
         print STDERR "--\n";
 
         gatekeeper($asm, "cor", @inputFiles);
 
         merylConfigure($asm, "cor");
-        merylCheck($asm, "cor")  foreach (1..getGlobal("canuIterationMax") + 1);
+#        merylCheck($asm, "cor")  foreach (1..getGlobal("canuIterationMax") + 1);
+#        foreach (1..getGlobal("canuIterationMax") + 1){
+               merylCheck1($asm, "cor");
+               merylCheck2($asm,"cor", "correction/0-mercounts");
         merylProcess($asm, "cor");
 
         overlap($asm, "cor");
@@ -691,7 +694,10 @@ if (setOptions($mode, "trim") eq "trim") {
         gatekeeper($asm, "obt", @inputFiles);
 
         merylConfigure($asm, "obt");
-        merylCheck($asm, "obt")  foreach (1..getGlobal("canuIterationMax") + 1);
+        #merylCheck($asm, "obt")  foreach (1..getGlobal("canuIterationMax") + 1);
+        foreach (1..getGlobal("canuIterationMax") + 1){
+               my $merylPath=merylCheck1($asm, "obt");
+               merylCheck2($asm,"obt",$merylPath);}
         merylProcess($asm, "obt");
 
         overlap($asm, "obt");
@@ -723,7 +729,10 @@ if (setOptions($mode, "assemble") eq "assemble") {
         gatekeeper($asm, "utg", @inputFiles);
 
         merylConfigure($asm, "utg");
-        merylCheck($asm, "utg")  foreach (1..getGlobal("canuIterationMax") + 1);
+        #merylCheck($asm, "utg")  foreach (1..getGlobal("canuIterationMax") + 1);
+         foreach (1..getGlobal("canuIterationMax") + 1){
+                my $merylPath=merylCheck1($asm, "utg");
+                merylCheck2($asm,"utg" ,$merylPath);}
         merylProcess($asm, "utg");
 
         overlap($asm, "utg");

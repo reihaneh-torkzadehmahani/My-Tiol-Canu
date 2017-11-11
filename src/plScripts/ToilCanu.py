@@ -3,7 +3,7 @@ from toil.job import Job
 from toil.common import Toil
 import os
 import subprocess
-import sh
+#import sh
 import urllib
 
 CanuBinDir = ''
