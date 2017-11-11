@@ -25,7 +25,7 @@ echo "Installing canu  ..."
 cd ./src
 sudo make -j4
 cd ..
-sudo cp -r ./src/pipelines/plScripts/*.pl ./Linux-amd64/bin
-sudo cp -r ./src/pipelines/plScripts/ToilCanu.py ./Linux-amd64/bin
+sudo cp -r ./src/plScripts/*.pl ./Linux-amd64/bin
+sudo cp -r ./src/plScripts/ToilCanu.py ./Linux-amd64/bin
 cd ./Linux-amd64/bin
 sudo chmod 755 *.pl
