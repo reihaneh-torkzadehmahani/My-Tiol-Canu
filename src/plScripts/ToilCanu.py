@@ -216,7 +216,7 @@ def RunScripts (job, PScripts, count, step, fn):
                         job.addFollowOn(CC)
 	elif (step=="assemble" and fn=="UnitigCheck"):
 			job.fileStore.logToMaster("Hahaha yughahha \n");
-		        CC = Job.wrapJobFn(ConsensusConfigureCheck )
+		        CC = Job.wrapJobFn(ConsensusConfigureCheck,2 )
        			job.addFollowOn(CC)
         elif (step=="assemble" and fn =="ConsensusConfigureCheck2"):
                         CC = Job.wrapJobFn(ConsensusConfigureCheck,1)
