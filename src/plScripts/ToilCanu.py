@@ -6,8 +6,9 @@ import subprocess
 #import sh
 import urllib
 
-CanuBinDir = ''
-CanuOptions = ''
+CanuBinDir ='/home/ubuntu/canu/Linux-amd64/bin'
+CanuOptions ="-p ecoli -d ecoil-oxford2 genomeSize=4.8m corMinCoverage=0 corMaxEvidenceErate=0.22 -nanopore-raw oxford.fasta"
+
 
 def getArgs (job, argv):
 	
@@ -37,15 +38,15 @@ def getArgs (job, argv):
 #        MCh = Job.wrapJobFn(MerylCheck)
 #        job.addFollowOn(MCh)
 #--------------------------------------------------------------------------------------------------#
-def DownloadData(job):
+def DownloadData(job,memory="2G", cores=2, disk="2G" ):
     os.chdir(CanuBinDir)
-#    url = "http://nanopore.s3.climb.ac.uk/MAP006-PCR-1_2D_pass.fasta"
-#    fileName=os.path.join(CanuBinDir, 'oxford.fasta')
- #   fileName=CanuBinDir+'/oxford.fasta'
-#    urllib.urlretrieve(url, fileName)
+    url = "http://nanopore.s3.climb.ac.uk/MAP006-PCR-1_2D_pass.fasta"
+    fileName=os.path.join(CanuBinDir, 'oxford.fasta')
+    fileName=CanuBinDir+'/oxford.fasta'
+    urllib.urlretrieve(url, fileName)
     job.fileStore.logToMaster("Data has been downloaded successfully!")
     CS = Job.wrapJobFn(CanuStart)
-    job.addFollowOn(CS)
+#    job.addFollowOn(CS)
 # -----------------------------------------------------------------------------------------------#
 def CanuStart(job):
         os.chdir(CanuBinDir)
@@ -652,9 +653,11 @@ def GenerateOutputs(job):
         job.fileStore.logToMaster("GenerateOutputs job is DONE! ")
 
 if __name__ == "__main__":
-        options = Job.Runner.getDefaultOptions("./toilWorkflow")
-        options.logLevel = "INFO" 
-        Job.Runner.startToil(Job.wrapJobFn(getArgs,sys.argv[1:]), options) 
+        #options = Job.Runner.getDefaultOptions("./toilWorkflow")
+        parser = Job.Runner.getDefaultArgumentParser()
+        options = parser.parse_args()
+	options.logLevel = "INFO" 
+        Job.Runner.startToil(Job.wrapJobFn(DownloadData), options) 
 #	Job.Runner.startToil(Job.wrapJobFn(MerylProcess, "correct"), options)
 
 
